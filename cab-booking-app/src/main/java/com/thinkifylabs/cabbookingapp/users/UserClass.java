@@ -1,8 +1,11 @@
 package com.thinkifylabs.cabbookingapp.users;
 
+import org.springframework.data.annotation.Id;
+
 public class UserClass {
     private String userName;
-    private long userPhoneNumber;   //unique identifier
+    @Id //Every user should have a unique phone number
+    private long userPhoneNumber;   
     private long xCoordinate;
     private long yCoordinate;
 
