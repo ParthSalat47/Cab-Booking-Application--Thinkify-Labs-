@@ -44,5 +44,23 @@ public class DriverRepository {
         return false;
     }
 
+    public boolean change_driver_status_repository(long driverPhoneNumber, boolean available)
+    {
+        for(DriverClass driver : driversList)
+        {
+            if(driver.getDriverPhoneNumber() == driverPhoneNumber)
+            {
+                driver.setavailable(available);
+                return true;
+            }
+        }
 
-}
+        //Debug
+        //System.out.println(driversList);
+
+        //In case of updation failure,
+        return false;
+    }
+
+
+}   

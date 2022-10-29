@@ -34,5 +34,15 @@ public class DriverController {
             System.out.println("\nThis driver doesn't exist. Please add the driver first.");        
     }
 
+    @GetMapping(path = "change_driver_status")
+    public void change_driver_status_controller()
+    {
+        if(driverService.change_driver_status_service())
+            System.out.println("\nDriver status changed successfully!");
+        else
+            System.out.println("\nThis driver doesn't exist. Please add the driver first.");        
+    }
+
+
 
 }

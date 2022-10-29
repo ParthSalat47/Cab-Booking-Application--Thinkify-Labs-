@@ -3,6 +3,7 @@ package com.thinkifylabs.cabbookingapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class UtilityMethods {
     
@@ -48,7 +49,7 @@ public class UtilityMethods {
 		catch (IOException e)
 		{
 			System.out.println("Encountered an IO exception while taking number input.");
-			return 0;
+			//return 0;
 		}
 		catch(NumberFormatException e)
 		{
@@ -57,6 +58,34 @@ public class UtilityMethods {
         
         return value;
     }
+
+	public static boolean booleanInput()
+	{
+		/*
+		 * Returns false in case of an exception.
+		 */
+
+	    String s = stringInput();
+	    boolean value = false;
+  
+        // create a new scanner
+        Scanner scanner = new Scanner(s);
+  
+            // if the input is a Boolean,
+            if (scanner.hasNextBoolean()) 
+            {
+                value = scanner.nextBoolean();
+            }
+  
+            // if no Boolean is found,
+            else {
+                System.out.println("Please enter either true or false. The current value is set to false.");
+            }
+
+        scanner.close();
+        
+        return value;
+	}
 
     public static String stringInput()
 	{

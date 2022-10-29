@@ -38,7 +38,10 @@ public class DriverService {
         System.out.println("\nEnter the y-coordinate of your current location:");
         long yCoordinate = UtilityMethods.longInput();
 
-        DriverClass newDriver = new DriverClass(driverName, driverPhoneNumber, driverGender, driverAge, vehicleDetails, xCoordinate, yCoordinate);
+        System.out.println("\nEnter your availability (true or false):");
+        boolean available = UtilityMethods.booleanInput();
+
+        DriverClass newDriver = new DriverClass(driverName, driverPhoneNumber, driverGender, driverAge, vehicleDetails, xCoordinate, yCoordinate, available);
         
         return driverRepository.add_driver_repository(newDriver);
     }
@@ -61,5 +64,18 @@ public class DriverService {
         return driverRepository.update_driverLocation_repository(driverPhoneNumber, xCoordinate, yCoordinate);
     }
 
+    public boolean change_driver_status_service()
+    {
+        System.out.println("\nEnter your phone number:");
+        long driverPhoneNumber = UtilityMethods.longInput();
+        
+        //If phone number isn't in database
+        if(driverRepository.check_phone_number(driverPhoneNumber) == false)
+            return false;
 
+        System.out.println("\nEnter your updated status:");
+        boolean available = UtilityMethods.booleanInput();
+    
+        return driverRepository.change_driver_status_repository(driverPhoneNumber, available);
+    }
 }
