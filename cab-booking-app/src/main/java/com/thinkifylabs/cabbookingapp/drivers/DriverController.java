@@ -1,5 +1,7 @@
 package com.thinkifylabs.cabbookingapp.drivers;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +56,10 @@ public class DriverController {
             return "\nThis driver doesn't exist. Please add the driver first.";        
     }
 
-
+    @GetMapping(path = "find_total_earning")
+    public ArrayList<String> find_total_earning_controller()
+    {
+        return driverService.find_total_earning_service();
+    }
 
 }

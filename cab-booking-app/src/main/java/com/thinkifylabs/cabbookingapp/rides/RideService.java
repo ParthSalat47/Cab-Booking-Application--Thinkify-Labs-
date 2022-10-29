@@ -80,6 +80,7 @@ public class RideService {
         return (long) Math.sqrt(xDistance + yDistance);
     }
 
+    //Begins the ride
     public boolean choose_ride_service(RideClass newRide)
     {
         //Pay the driver and update his current location
@@ -110,6 +111,7 @@ public class RideService {
         return true;
     }
 
+    //Calculates bill and ends the ride
     public long calculateBill_service(long userPhoneNumber)
     {
         for(UserClass user : userRepository.getUsersList())

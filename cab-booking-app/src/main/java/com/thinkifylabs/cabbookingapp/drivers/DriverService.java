@@ -1,5 +1,7 @@
 package com.thinkifylabs.cabbookingapp.drivers;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,19 @@ public class DriverService {
             return false;
 
         return driverRepository.change_driver_status_repository(newDriver);
+    }
+
+    public ArrayList<String> find_total_earning_service()
+    {
+        ArrayList<String> totalEarnings = new ArrayList<String>();
+
+        for(DriverClass driver : driverRepository.getDriversList())
+        {
+            String earning = driver.getDriverName() + " earned " + driver.getDriverEarning();
+
+            totalEarnings.add(earning);
+        }
+
+        return totalEarnings;
     }
 }
