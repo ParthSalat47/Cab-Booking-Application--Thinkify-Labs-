@@ -24,9 +24,21 @@ public class RideController {
     @GetMapping(path = "find_ride")
     public ArrayList<DriverClass> find_ride(@RequestParam long userPhoneNumber, @RequestParam long sourceXCoordinate, @RequestParam long sourceYCoordinate, @RequestParam long destXCoordinate, @RequestParam long destYCoordinate)
     {
-        RideClass newRide = new RideClass(userPhoneNumber, 0, sourceXCoordinate, sourceYCoordinate, destXCoordinate, destYCoordinate, 0);
+        //Ignore the source coordinates because the user's current location will be the source of the ride (according to requirements file)
+        RideClass newRide = new RideClass(userPhoneNumber, 0, 0, 0, destXCoordinate, destYCoordinate, 0);
 
         return ridesService.find_ride_service(newRide);
+    }
+
+    @GetMapping(path = "choose_ride")
+    public String choose_ride(@RequestParam long userPhoneNumber, @RequestParam long driverPhoneNumber)
+    {
+        RideClass newRide = new RideClass(userPhoneNumber, driverPhoneNumber, 0, 0, 0, 0, 0);
+
+        if(ridesService.choose_ride_service(newRide))
+            return "Ride has started.";
+        else 
+            return "Could not start ride. Please try again later.";
     }
 
     

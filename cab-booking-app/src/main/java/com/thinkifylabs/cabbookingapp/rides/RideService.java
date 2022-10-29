@@ -7,20 +7,18 @@ import org.springframework.stereotype.Service;
 
 import com.thinkifylabs.cabbookingapp.drivers.DriverClass;
 import com.thinkifylabs.cabbookingapp.drivers.DriverRepository;
+import com.thinkifylabs.cabbookingapp.users.UserClass;
 import com.thinkifylabs.cabbookingapp.users.UserRepository;
 
 @Service
 public class RideService {
-
-    // private final RidesRepository ridesRepository;
-
-    // @Autowired
-    // public RidesService(RidesRepository ridesRepository) {
-    //     this.ridesRepository = ridesRepository;
-    // }
  
     private final UserRepository userRepository;
     private final DriverRepository driverRepository;
+    
+    private long travelDistance;
+    private long destXCoordinate;
+    private long destYCoordinate;
 
     @Autowired
     public RideService(UserRepository userRepository, DriverRepository driverRepository) {
@@ -28,14 +26,33 @@ public class RideService {
         this.driverRepository = driverRepository;
     }
 
+    //Returns list of drivers within 5 units distance and who are available
     public ArrayList<DriverClass> find_ride_service(RideClass newRide)
     {
         //If phone number isn't in database
         if(userRepository.check_phone_number(newRide.getUserPhoneNumber()) == false)
             return null;
 
+        //Save travelDistance to calculate bill in choose_ride_service later
+        travelDistance = calculateDistance(newRide.getSourceXCoordinate(), newRide.getSourceYCoordinate(), 
+            newRide.getDestXCoordinate(), newRide.getDestYCoordinate());
+
+        //Save destination coordinates for use in choose_ride_service later 
+        destXCoordinate = newRide.getDestXCoordinate();
+        destYCoordinate = newRide.getDestYCoordinate();
+
         ArrayList<DriverClass> driversList = driverRepository.getDriversList();
         ArrayList<DriverClass> nearbyDriversList = new ArrayList<DriverClass>();
+
+        //User's current location will be this ride's source coordinates
+        for(UserClass user : userRepository.getUsersList())
+        {
+            if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
+            {
+                newRide.setSourceXCoordinate(user.getxCoordinate());
+                newRide.setSourceYCoordinate(user.getyCoordinate());
+            }
+        }
 
         for(DriverClass driver : driversList)
         {
@@ -47,16 +64,49 @@ public class RideService {
             }
         }
 
+        System.out.println(driverRepository.getDriversList());
+        System.out.println(userRepository.getUsersList());
+
         return nearbyDriversList;
     }
 
-    public long calculateDistance(long driverXCoordinate, long driverYCoordinate, 
-        long userXCoordinate, long userYCoordinate)
+    //Calculates distance between 2 points in 2 dimensions
+    public long calculateDistance(long sourceXCoordinate, long sourceYCoordinate, 
+        long destXCoordinate, long destYCoordinate)
     {
-        long xDistance = (long) Math.pow(driverXCoordinate - userXCoordinate, 2);
-        long yDistance = (long) Math.pow(driverYCoordinate - userYCoordinate, 2);
+        long xDistance = (long) Math.pow(sourceXCoordinate - destXCoordinate, 2);
+        long yDistance = (long) Math.pow(sourceYCoordinate - destYCoordinate, 2);
         
         return (long) Math.sqrt(xDistance + yDistance);
+    }
+
+    public boolean choose_ride_service(RideClass newRide)
+    {
+        //Pay the driver and update his current location
+        for(DriverClass driver : driverRepository.getDriversList())
+        {
+            if(driver.getDriverPhoneNumber() == newRide.getDriverPhoneNumber())
+            {
+                driver.setDriverEarning(travelDistance);
+                driver.setxCoordinate(destXCoordinate);
+                driver.setyCoordinate(destYCoordinate);
+            }
+        }
+
+        //Update user's current location
+        for(UserClass user : userRepository.getUsersList())
+        {
+            if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
+            {
+                user.setxCoordinate(destXCoordinate);
+                user.setyCoordinate(destYCoordinate);
+            }
+        }
+        
+        System.out.println(driverRepository.getDriversList());
+        System.out.println(userRepository.getUsersList());
+
+        return true;
     }
 
 }

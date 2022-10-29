@@ -21,9 +21,9 @@ public class DriverController {
     public String add_driver_controller(@RequestParam String driverName, @RequestParam String driverGender, 
         @RequestParam long driverAge, @RequestParam long driverPhoneNumber, 
         @RequestParam String vehicleDetails, @RequestParam long xCoordinate, 
-        @RequestParam long yCoordinate, @RequestParam boolean available)
+        @RequestParam long yCoordinate, @RequestParam boolean available, @RequestParam long driverEarning)
     {
-        DriverClass newDriver = new DriverClass(driverName, driverPhoneNumber, driverGender, driverAge, vehicleDetails, xCoordinate, yCoordinate, available);
+        DriverClass newDriver = new DriverClass(driverName, driverPhoneNumber, driverGender, driverAge, vehicleDetails, xCoordinate, yCoordinate, available, driverEarning);
 
         if(driverService.add_driver_service(newDriver))
             return "\nDriver added successfully!";
@@ -35,7 +35,7 @@ public class DriverController {
     public String update_driverLocation_controller(@RequestParam long driverPhoneNumber, @RequestParam long xCoordinate, 
     @RequestParam long yCoordinate)
     {
-        DriverClass newDriver = new DriverClass("", driverPhoneNumber, "", 0, "", xCoordinate, yCoordinate, false);
+        DriverClass newDriver = new DriverClass("", driverPhoneNumber, "", 0, "", xCoordinate, yCoordinate, false, 0);
 
         if(driverService.update_driverLocation_service(newDriver))
             return "\nDriver location updated successfully!";
@@ -46,7 +46,7 @@ public class DriverController {
     @GetMapping(path = "change_driver_status")
     public String change_driver_status_controller(@RequestParam long driverPhoneNumber, @RequestParam boolean available)
     {
-        DriverClass newDriver = new DriverClass("", driverPhoneNumber, "", 0, "", 0, 0, available);
+        DriverClass newDriver = new DriverClass("", driverPhoneNumber, "", 0, "", 0, 0, available, 0);
 
         if(driverService.change_driver_status_service(newDriver))
             return "\nDriver status changed successfully!";

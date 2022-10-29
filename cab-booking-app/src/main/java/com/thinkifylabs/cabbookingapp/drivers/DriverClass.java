@@ -13,13 +13,14 @@ public class DriverClass
     private long xCoordinate;
     private long yCoordinate;
     private boolean available;
+    private long driverEarning;
 
     //Constructors
     public DriverClass() {
     }
 
     public DriverClass(String driverName, long driverPhoneNumber, String driverGender, long driverAge,
-            String vehicleDetails, long xCoordinate, long yCoordinate, boolean available) {
+            String vehicleDetails, long xCoordinate, long yCoordinate, boolean available, long driverEarning) {
         this.driverName = driverName;
         this.driverPhoneNumber = driverPhoneNumber;
         this.driverGender = driverGender;
@@ -28,6 +29,7 @@ public class DriverClass
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.available = available;
+        this.driverEarning = driverEarning;
     }
 
     //Getters
@@ -63,6 +65,10 @@ public class DriverClass
         return available;
     }
 
+    public long getDriverEarning() {
+        return driverEarning;
+    }
+
     //Setters
     public void setDriverName(String driverName) {
         this.driverName = driverName;
@@ -96,13 +102,21 @@ public class DriverClass
         this.available = available;
     }
 
+    public void setDriverEarning(long driverEarning) {
+        this.driverEarning = driverEarning;
+    }
+
     //toString()
     @Override
     public String toString() {
         return "DriverClass [driverName=" + driverName + ", driverPhoneNumber=" + driverPhoneNumber + ", driverGender="
                 + driverGender + ", driverAge=" + driverAge + ", vehicleDetails=" + vehicleDetails + ", xCoordinate="
-                + xCoordinate + ", yCoordinate=" + yCoordinate + ", available=" + available + "]";
+                + xCoordinate + ", yCoordinate=" + yCoordinate + ", available=" + available + ", driverEarning="
+                + driverEarning + "]";
     }
+
+    
+    
 
     
     

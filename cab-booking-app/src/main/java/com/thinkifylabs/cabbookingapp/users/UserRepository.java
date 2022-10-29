@@ -9,6 +9,15 @@ public class UserRepository{
     
     private ArrayList<UserClass> usersList = new ArrayList<UserClass>();
 
+    //Getters and Setters
+    public ArrayList<UserClass> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(ArrayList<UserClass> usersList) {
+        this.usersList = usersList;
+    }
+
     public boolean add_user_repository(UserClass newUser)
     {
         return usersList.add(newUser);
