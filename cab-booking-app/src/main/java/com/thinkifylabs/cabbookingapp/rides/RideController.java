@@ -41,6 +41,15 @@ public class RideController {
             return "Could not start ride. Please try again later.";
     }
 
-    
+    @GetMapping(path = "calculateBill")
+    public String calculateBill(@RequestParam long userPhoneNumber)
+    {
+        long paymentDue = ridesService.calculateBill_service(userPhoneNumber);
+        
+        if(paymentDue != 0)
+            return "The user - " + userPhoneNumber + " has to pay: " + paymentDue;
+        else 
+            return "The user - " + userPhoneNumber + " has no payment due.";
+    }
 
 }

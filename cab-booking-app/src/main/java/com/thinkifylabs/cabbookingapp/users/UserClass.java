@@ -8,6 +8,7 @@ public class UserClass {
     private long userPhoneNumber;   
     private long xCoordinate;
     private long yCoordinate;
+    private long userBillDue;
 
     //Constructors
     public UserClass() {
@@ -18,6 +19,7 @@ public class UserClass {
         this.userPhoneNumber = userPhoneNumber;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.userBillDue = userBillDue;
     }
 
     //Getters
@@ -37,6 +39,10 @@ public class UserClass {
         return yCoordinate;
     }
 
+    public long getUserBillDue() {
+        return userBillDue;
+    }
+
     //Setters
     public void setUserName(String userName) {
         this.userName = userName;
@@ -54,14 +60,15 @@ public class UserClass {
         this.yCoordinate = yCoordinate;
     }
 
+    public void setUserBillDue(long userBillDue) {
+        this.userBillDue = userBillDue;
+    }
     //toString() method
     @Override
     public String toString() {
         return "UserClass [userName=" + userName + ", userPhoneNumber=" + userPhoneNumber + ", xCoordinate="
-                + xCoordinate + ", yCoordinate=" + yCoordinate + "]";
+                + xCoordinate + ", yCoordinate=" + yCoordinate + ", userBillDue=" + userBillDue + "]";
     }
 
-    
-    
 
 }

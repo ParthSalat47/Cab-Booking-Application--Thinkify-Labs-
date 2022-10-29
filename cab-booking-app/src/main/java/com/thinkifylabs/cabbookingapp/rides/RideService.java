@@ -33,6 +33,16 @@ public class RideService {
         if(userRepository.check_phone_number(newRide.getUserPhoneNumber()) == false)
             return null;
 
+        //User's current location will be this ride's source coordinates
+        for(UserClass user : userRepository.getUsersList())
+        {
+            if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
+            {
+                newRide.setSourceXCoordinate(user.getxCoordinate());
+                newRide.setSourceYCoordinate(user.getyCoordinate());
+            }
+        }
+
         //Save travelDistance to calculate bill in choose_ride_service later
         travelDistance = calculateDistance(newRide.getSourceXCoordinate(), newRide.getSourceYCoordinate(), 
             newRide.getDestXCoordinate(), newRide.getDestYCoordinate());
@@ -44,16 +54,6 @@ public class RideService {
         ArrayList<DriverClass> driversList = driverRepository.getDriversList();
         ArrayList<DriverClass> nearbyDriversList = new ArrayList<DriverClass>();
 
-        //User's current location will be this ride's source coordinates
-        for(UserClass user : userRepository.getUsersList())
-        {
-            if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
-            {
-                newRide.setSourceXCoordinate(user.getxCoordinate());
-                newRide.setSourceYCoordinate(user.getyCoordinate());
-            }
-        }
-
         for(DriverClass driver : driversList)
         {
             long driverDistance = calculateDistance(driver.getxCoordinate(), driver.getyCoordinate(), newRide.getSourceXCoordinate(), newRide.getSourceYCoordinate());
@@ -64,8 +64,8 @@ public class RideService {
             }
         }
 
-        System.out.println(driverRepository.getDriversList());
-        System.out.println(userRepository.getUsersList());
+        // System.out.println(driverRepository.getDriversList());
+        // System.out.println(userRepository.getUsersList());
 
         return nearbyDriversList;
     }
@@ -87,26 +87,40 @@ public class RideService {
         {
             if(driver.getDriverPhoneNumber() == newRide.getDriverPhoneNumber())
             {
-                driver.setDriverEarning(travelDistance);
+                driver.setDriverEarning(driver.getDriverEarning() + travelDistance);
                 driver.setxCoordinate(destXCoordinate);
                 driver.setyCoordinate(destYCoordinate);
             }
         }
 
-        //Update user's current location
+        //Bill the user and update his current location
         for(UserClass user : userRepository.getUsersList())
         {
             if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
             {
+                user.setUserBillDue(travelDistance);
                 user.setxCoordinate(destXCoordinate);
                 user.setyCoordinate(destYCoordinate);
             }
         }
         
-        System.out.println(driverRepository.getDriversList());
-        System.out.println(userRepository.getUsersList());
+        // System.out.println(driverRepository.getDriversList());
+        // System.out.println(userRepository.getUsersList());
 
         return true;
+    }
+
+    public long calculateBill_service(long userPhoneNumber)
+    {
+        for(UserClass user : userRepository.getUsersList())
+        {
+            if(user.getUserPhoneNumber() == userPhoneNumber)
+            {
+                return user.getUserBillDue();
+            }
+        }
+
+        return 0;
     }
 
 }
