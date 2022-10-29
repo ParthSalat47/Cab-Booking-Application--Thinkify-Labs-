@@ -11,7 +11,9 @@ public class UserRepository{
 
     public boolean add_user_repository(UserClass newUser)
     {
-        return usersList.add(newUser);
+        usersList.add(newUser);
+        System.out.println(usersList);
+        return true;
     }
 
     public boolean update_user_repository(long userPhoneNumber, String userNewName, 

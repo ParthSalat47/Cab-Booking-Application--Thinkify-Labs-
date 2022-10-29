@@ -9,6 +9,16 @@ public class DriverRepository {
     
     private ArrayList<DriverClass> driversList = new ArrayList<DriverClass>();
 
+    //Getters and Setters
+    public ArrayList<DriverClass> getDriversList() {
+        return driversList;
+    }
+
+    public void setDriversList(ArrayList<DriverClass> driversList) {
+        this.driversList = driversList;
+    }
+    //--------------------
+
     public boolean check_phone_number(long driverPhoneNumber)
     {
         for(DriverClass driver : driversList)
@@ -61,6 +71,10 @@ public class DriverRepository {
         //In case of updation failure,
         return false;
     }
+
+    
+
+    
 
 
 }   

@@ -138,7 +138,47 @@ public class MainProgramLoop {
 
     public static void rideRelatedLoop()
     {
-
+		while(true)
+		{	
+			System.out.println("\nPress appropriate key: "
+					+ "\n1. Find a ride"
+					+ "\n2. Update Driver Location"
+					+ "\n3. Change Driver Status"
+					+ "\n4. Return to main menu"
+					+ "\n\nPress Ctrl+C to exit the program.");
+			
+			int option = UtilityMethods.integerInput(); 
+			
+			switch(option)
+			{
+				case 1: 
+				{
+					UtilityMethods.curl("curl http://127.0.0.1:8080/rides/find_ride");
+					break;
+				}
+				case 2: 
+				{
+					UtilityMethods.curl("curl http://127.0.0.1:8080/drivers/update_driverLocation");
+					break;
+				}
+				case 3: 
+				{
+					UtilityMethods.curl("curl http://127.0.0.1:8080/drivers/change_driver_status");
+                    break;
+				}
+                case 4: 
+				{
+					return;
+				}
+				default:	
+				{
+					System.out.println("Please enter a number between 1 and 4.");
+				}
+			}
+			
+			
+		}
+    
     }
 
     //Calculate earnings!

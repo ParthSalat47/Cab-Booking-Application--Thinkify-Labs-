@@ -15,22 +15,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean add_user_service()
-    {
-        System.out.println("\nEnter your name:");
-        String userName = UtilityMethods.stringInput();
-        
-        System.out.println("\nEnter your phone number:");
-        long userPhoneNumber = UtilityMethods.longInput();
-        
-        System.out.println("\nEnter the x-coordinate of your address:");
-        long xCoordinate = UtilityMethods.longInput();
-
-        System.out.println("\nEnter the y-coordinate of your address:");
-        long yCoordinate = UtilityMethods.longInput();
-
-        UserClass newUser = new UserClass(userName, userPhoneNumber, xCoordinate, yCoordinate);
-        
+    public boolean add_user_service(UserClass newUser)
+    {   
         return userRepository.add_user_repository(newUser);
     }
 
