@@ -3,7 +3,6 @@ package com.thinkifylabs.cabbookingapp.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,9 +21,18 @@ public class UserController {
     public void add_user_controller()
     {
         if(userService.add_user_service())
-            System.out.println("User added successfully!\n");
+            System.out.println("\nUser added successfully!");
         else
-            System.out.println("Failed to add user! Please try again later.\n");        
+            System.out.println("\nFailed to add user! Please try again later.");        
+    }
+
+    @GetMapping(path = "update_user")
+    public void update_user_controller()
+    {
+        if(userService.update_user_service())
+            System.out.println("\nUser details updated successfully!");
+        else
+            System.out.println("\nThis user doesn't exist. Please add the user first.");        
     }
 
 }
