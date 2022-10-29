@@ -32,12 +32,15 @@ public class DriverController {
     }
 
     @GetMapping(path = "update_driverLocation")
-    public void update_driverLocation_controller()
+    public String update_driverLocation_controller(@RequestParam long driverPhoneNumber, @RequestParam long xCoordinate, 
+    @RequestParam long yCoordinate)
     {
-        if(driverService.update_driverLocation_service())
-            System.out.println("\nDriver location updated successfully!");
+        DriverClass newDriver = new DriverClass("", driverPhoneNumber, "", 0, "", xCoordinate, yCoordinate, false);
+
+        if(driverService.update_driverLocation_service(newDriver))
+            return "\nDriver location updated successfully!";
         else
-            System.out.println("\nThis driver doesn't exist. Please add the driver first.");        
+            return "\nThis driver doesn't exist. Please add the driver first.";        
     }
 
     @GetMapping(path = "change_driver_status")

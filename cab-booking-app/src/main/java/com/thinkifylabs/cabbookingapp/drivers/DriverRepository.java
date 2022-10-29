@@ -32,24 +32,22 @@ public class DriverRepository {
 
     public boolean add_driver_repository(DriverClass newDriver)
     {
-        System.out.println(newDriver);
+        //System.out.println(newDriver);
         return driversList.add(newDriver);
     }
 
-    public boolean update_driverLocation_repository(long driverPhoneNumber, long xCoordinate, long yCoordinate)
+    public boolean update_driverLocation_repository(DriverClass newDriver)
     {
         for(DriverClass driver : driversList)
         {
-            if(driver.getDriverPhoneNumber() == driverPhoneNumber)
+            if(driver.getDriverPhoneNumber() == newDriver.getDriverPhoneNumber())
             {
-                driver.setxCoordinate(xCoordinate);
-                driver.setyCoordinate(yCoordinate);
+                driver.setxCoordinate(newDriver.getxCoordinate());
+                driver.setyCoordinate(newDriver.getyCoordinate());
+                //System.out.println(driversList);
                 return true;
             }
         }
-
-        //Debug
-        //System.out.println(driversList);
 
         //In case of updation failure,
         return false;

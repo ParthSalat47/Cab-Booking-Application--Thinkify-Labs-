@@ -20,22 +20,13 @@ public class DriverService {
         return driverRepository.add_driver_repository(newDriver);
     }
 
-    public boolean update_driverLocation_service()
+    public boolean update_driverLocation_service(DriverClass newDriver)
     {
-        System.out.println("\nEnter your phone number:");
-        long driverPhoneNumber = UtilityMethods.longInput();
-        
         //If phone number isn't in database
-        if(driverRepository.check_phone_number(driverPhoneNumber) == false)
+        if(driverRepository.check_phone_number(newDriver.getDriverPhoneNumber()) == false)
             return false;
-
-        System.out.println("\nEnter your new xCoordinate:");
-        long xCoordinate = UtilityMethods.longInput();
-
-        System.out.println("\nEnter your new yCoordinate:"); 
-        long yCoordinate = UtilityMethods.longInput();
         
-        return driverRepository.update_driverLocation_repository(driverPhoneNumber, xCoordinate, yCoordinate);
+        return driverRepository.update_driverLocation_repository(newDriver);
     }
 
     public boolean change_driver_status_service()
