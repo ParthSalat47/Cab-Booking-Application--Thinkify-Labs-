@@ -11,20 +11,19 @@ public class UserRepository{
 
     public boolean add_user_repository(UserClass newUser)
     {
-        usersList.add(newUser);
-        System.out.println(usersList);
-        return true;
+        return usersList.add(newUser);
+        //System.out.println(usersList);
+        //return true;
     }
 
-    public boolean update_user_repository(long userPhoneNumber, String userNewName, 
-        long userNewPhoneNumber)
+    public boolean update_user_repository(long userPhoneNumber, UserClass newUser)
     {
         for(UserClass user : usersList)
         {
             if(user.getUserPhoneNumber() == userPhoneNumber)
             {
-                user.setUserName(userNewName);
-                user.setUserPhoneNumber(userNewPhoneNumber);
+                user.setUserName(newUser.getUserName());
+                user.setUserPhoneNumber(newUser.getUserPhoneNumber());
                 return true;
             }
         }

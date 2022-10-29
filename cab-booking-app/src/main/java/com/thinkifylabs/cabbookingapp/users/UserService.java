@@ -20,22 +20,13 @@ public class UserService {
         return userRepository.add_user_repository(newUser);
     }
 
-    public boolean update_user_service()
+    public boolean update_user_service(long userPhoneNumber, UserClass newUser)
     {
-        System.out.println("\nEnter your phone number:");
-        long userPhoneNumber = UtilityMethods.longInput();
-        
         //If phone number isn't in database
         if(userRepository.check_phone_number(userPhoneNumber) == false)
             return false;
 
-        System.out.println("\nEnter your new name:");
-        String userNewName = UtilityMethods.stringInput();
-
-        System.out.println("\nEnter your new phone number:"); 
-        long userNewPhoneNumber = UtilityMethods.longInput();
-        
-        return userRepository.update_user_repository(userPhoneNumber, userNewName, userNewPhoneNumber);
+        return userRepository.update_user_repository(userPhoneNumber, newUser);
     }
 
     public boolean update_userLocation_service()

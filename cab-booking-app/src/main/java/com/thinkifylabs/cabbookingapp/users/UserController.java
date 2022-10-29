@@ -30,12 +30,14 @@ public class UserController {
     }
 
     @GetMapping(path = "update_user")
-    public void update_user_controller()
+    public String update_user_controller(@RequestParam long userPhoneNumber, @RequestParam String userNewName, @RequestParam long userNewPhoneNumber)
     {
-        if(userService.update_user_service())
-            System.out.println("\nUser details updated successfully!");
+        UserClass newUser = new UserClass(userNewName, userNewPhoneNumber, 0, 0);
+
+        if(userService.update_user_service(userPhoneNumber, newUser))
+            return "\nUser details updated successfully!";
         else
-            System.out.println("\nThis user doesn't exist. Please add the user first.");        
+            return "\nThis user doesn't exist. Please add the user first.";        
     }
 
     @GetMapping(path = "update_userLocation")
