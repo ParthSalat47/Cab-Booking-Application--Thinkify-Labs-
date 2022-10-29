@@ -53,19 +53,17 @@ public class DriverRepository {
         return false;
     }
 
-    public boolean change_driver_status_repository(long driverPhoneNumber, boolean available)
+    public boolean change_driver_status_repository(DriverClass newDriver)
     {
         for(DriverClass driver : driversList)
         {
-            if(driver.getDriverPhoneNumber() == driverPhoneNumber)
+            if(driver.getDriverPhoneNumber() == newDriver.getDriverPhoneNumber())
             {
-                driver.setavailable(available);
+                driver.setavailable(newDriver.getavailable());
+                //System.out.println(driversList);
                 return true;
             }
         }
-
-        //Debug
-        //System.out.println(driversList);
 
         //In case of updation failure,
         return false;

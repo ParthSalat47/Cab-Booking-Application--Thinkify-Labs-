@@ -44,12 +44,14 @@ public class DriverController {
     }
 
     @GetMapping(path = "change_driver_status")
-    public void change_driver_status_controller()
+    public String change_driver_status_controller(@RequestParam long driverPhoneNumber, @RequestParam boolean available)
     {
-        if(driverService.change_driver_status_service())
-            System.out.println("\nDriver status changed successfully!");
+        DriverClass newDriver = new DriverClass("", driverPhoneNumber, "", 0, "", 0, 0, available);
+
+        if(driverService.change_driver_status_service(newDriver))
+            return "\nDriver status changed successfully!";
         else
-            System.out.println("\nThis driver doesn't exist. Please add the driver first.");        
+            return "\nThis driver doesn't exist. Please add the driver first.";        
     }
 
 

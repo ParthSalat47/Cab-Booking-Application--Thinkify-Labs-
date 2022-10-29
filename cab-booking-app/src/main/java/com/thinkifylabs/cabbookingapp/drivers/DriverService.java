@@ -3,8 +3,6 @@ package com.thinkifylabs.cabbookingapp.drivers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.thinkifylabs.cabbookingapp.UtilityMethods;
-
 @Service
 public class DriverService {
     
@@ -29,18 +27,12 @@ public class DriverService {
         return driverRepository.update_driverLocation_repository(newDriver);
     }
 
-    public boolean change_driver_status_service()
+    public boolean change_driver_status_service(DriverClass newDriver)
     {
-        System.out.println("\nEnter your phone number:");
-        long driverPhoneNumber = UtilityMethods.longInput();
-        
         //If phone number isn't in database
-        if(driverRepository.check_phone_number(driverPhoneNumber) == false)
+        if(driverRepository.check_phone_number(newDriver.getDriverPhoneNumber()) == false)
             return false;
 
-        System.out.println("\nEnter your updated status:");
-        boolean available = UtilityMethods.booleanInput();
-    
-        return driverRepository.change_driver_status_repository(driverPhoneNumber, available);
+        return driverRepository.change_driver_status_repository(newDriver);
     }
 }
