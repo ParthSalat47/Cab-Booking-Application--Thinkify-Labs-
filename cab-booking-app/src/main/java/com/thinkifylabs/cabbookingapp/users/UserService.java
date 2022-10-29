@@ -52,5 +52,24 @@ public class UserService {
         return userRepository.update_user_repository(userPhoneNumber, userNewName, userNewPhoneNumber);
     }
 
+    public boolean update_userLocation_service()
+    {
+        System.out.println("\nEnter your phone number:");
+        long userPhoneNumber = UtilityMethods.longInput();
+        
+        //If phone number isn't in database
+        if(userRepository.check_phone_number(userPhoneNumber) == false)
+            return false;
 
+        System.out.println("\nEnter your new xCoordinate:");
+        long xCoordinate = UtilityMethods.longInput();
+
+        System.out.println("\nEnter your new yCoordinate:"); 
+        long yCoordinate = UtilityMethods.longInput();
+        
+        return userRepository.update_userLocation_repository(userPhoneNumber, xCoordinate, yCoordinate);
+    }
+
+
+    
 }

@@ -74,7 +74,7 @@ public class MainProgramLoop {
 				}
 				case 3: 
 				{
-					rideRelatedLoop();
+					UtilityMethods.curl("curl http://127.0.0.1:8080/users/update_userLocation");
                     break;
 				}
                 case 4: 

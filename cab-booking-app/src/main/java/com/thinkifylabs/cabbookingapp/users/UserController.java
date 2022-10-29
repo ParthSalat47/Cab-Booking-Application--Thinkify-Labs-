@@ -35,4 +35,15 @@ public class UserController {
             System.out.println("\nThis user doesn't exist. Please add the user first.");        
     }
 
+    @GetMapping(path = "update_userLocation")
+    public void update_userLocation_controller()
+    {
+        if(userService.update_userLocation_service())
+            System.out.println("\nUser location updated successfully!");
+        else
+            System.out.println("\nThis user doesn't exist. Please add the user first.");        
+    }
+
+    
+
 }

@@ -23,12 +23,15 @@ public class UserRepository{
             {
                 user.setUserName(userNewName);
                 user.setUserPhoneNumber(userNewPhoneNumber);
+                return true;
             }
         }
 
-        System.out.println(usersList);
+        //Debug
+        //System.out.println(usersList);
 
-        return true;
+        //In case of updation failure,
+        return false;
     }
 
     public boolean check_phone_number(long userPhoneNumber)
@@ -42,4 +45,22 @@ public class UserRepository{
         return false;
     }
 
+    public boolean update_userLocation_repository(long userPhoneNumber, long xCoordinate, long yCoordinate)
+    {
+        for(UserClass user : usersList)
+        {
+            if(user.getUserPhoneNumber() == userPhoneNumber)
+            {
+                user.setxCoordinate(xCoordinate);
+                user.setyCoordinate(yCoordinate);
+                return true;
+            }
+        }
+
+        //Debug
+        //System.out.println(usersList);
+
+        //In case of updation failure,
+        return false;
+    }
 }
