@@ -32,6 +32,7 @@ public class DriverRepository {
 
     public boolean add_driver_repository(DriverClass newDriver)
     {
+        System.out.println(newDriver);
         return driversList.add(newDriver);
     }
 

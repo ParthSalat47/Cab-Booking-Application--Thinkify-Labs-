@@ -3,8 +3,6 @@ package com.thinkifylabs.cabbookingapp.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.thinkifylabs.cabbookingapp.UtilityMethods;
-
 @Service
 public class UserService {
     
@@ -29,22 +27,13 @@ public class UserService {
         return userRepository.update_user_repository(userPhoneNumber, newUser);
     }
 
-    public boolean update_userLocation_service()
+    public boolean update_userLocation_service(UserClass newUser)
     {
-        System.out.println("\nEnter your phone number:");
-        long userPhoneNumber = UtilityMethods.longInput();
-        
         //If phone number isn't in database
-        if(userRepository.check_phone_number(userPhoneNumber) == false)
+        if(userRepository.check_phone_number(newUser.getUserPhoneNumber()) == false)
             return false;
 
-        System.out.println("\nEnter your new xCoordinate:");
-        long xCoordinate = UtilityMethods.longInput();
-
-        System.out.println("\nEnter your new yCoordinate:"); 
-        long yCoordinate = UtilityMethods.longInput();
-        
-        return userRepository.update_userLocation_repository(userPhoneNumber, xCoordinate, yCoordinate);
+        return userRepository.update_userLocation_repository(newUser);
     }
 
 

@@ -46,14 +46,14 @@ public class UserRepository{
         return false;
     }
 
-    public boolean update_userLocation_repository(long userPhoneNumber, long xCoordinate, long yCoordinate)
+    public boolean update_userLocation_repository(UserClass newUser)
     {
         for(UserClass user : usersList)
         {
-            if(user.getUserPhoneNumber() == userPhoneNumber)
+            if(user.getUserPhoneNumber() == newUser.getUserPhoneNumber())
             {
-                user.setxCoordinate(xCoordinate);
-                user.setyCoordinate(yCoordinate);
+                user.setxCoordinate(newUser.getxCoordinate());
+                user.setyCoordinate(newUser.getyCoordinate());
                 return true;
             }
         }

@@ -41,12 +41,15 @@ public class UserController {
     }
 
     @GetMapping(path = "update_userLocation")
-    public void update_userLocation_controller()
+    public String update_userLocation_controller(@RequestParam long userPhoneNumber, 
+    @RequestParam long xCoordinate, @RequestParam long yCoordinate)
     {
-        if(userService.update_userLocation_service())
-            System.out.println("\nUser location updated successfully!");
+        UserClass newUser = new UserClass("", userPhoneNumber, xCoordinate, yCoordinate);
+
+        if(userService.update_userLocation_service(newUser))
+            return "\nUser location updated successfully!";
         else
-            System.out.println("\nThis user doesn't exist. Please add the user first.");        
+            return "\nThis user doesn't exist. Please add the user first.";        
     }
 
 

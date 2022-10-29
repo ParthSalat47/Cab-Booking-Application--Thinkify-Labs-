@@ -3,6 +3,7 @@ package com.thinkifylabs.cabbookingapp.drivers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,12 +18,17 @@ public class DriverController {
     }
 
     @GetMapping(path = "add_driver")
-    public void add_driver_controller()
+    public String add_driver_controller(@RequestParam String driverName, @RequestParam String driverGender, 
+        @RequestParam long driverAge, @RequestParam long driverPhoneNumber, 
+        @RequestParam String vehicleDetails, @RequestParam long xCoordinate, 
+        @RequestParam long yCoordinate, @RequestParam boolean available)
     {
-        if(driverService.add_driver_service())
-            System.out.println("\nDriver added successfully!");
+        DriverClass newDriver = new DriverClass(driverName, driverPhoneNumber, driverGender, driverAge, vehicleDetails, xCoordinate, yCoordinate, available);
+
+        if(driverService.add_driver_service(newDriver))
+            return "\nDriver added successfully!";
         else
-            System.out.println("\nFailed to add driver! Please try again later.");        
+            return "\nFailed to add driver! Please try again later.";        
     }
 
     @GetMapping(path = "update_driverLocation")
