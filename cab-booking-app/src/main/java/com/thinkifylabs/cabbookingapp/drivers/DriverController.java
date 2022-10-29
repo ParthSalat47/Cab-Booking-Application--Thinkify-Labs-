@@ -25,5 +25,14 @@ public class DriverController {
             System.out.println("\nFailed to add driver! Please try again later.");        
     }
 
+    @GetMapping(path = "update_driverLocation")
+    public void update_driverLocation_controller()
+    {
+        if(driverService.update_driverLocation_service())
+            System.out.println("\nDriver location updated successfully!");
+        else
+            System.out.println("\nThis driver doesn't exist. Please add the driver first.");        
+    }
+
 
 }

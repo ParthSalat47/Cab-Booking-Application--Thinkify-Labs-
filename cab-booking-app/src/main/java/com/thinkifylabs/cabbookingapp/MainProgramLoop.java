@@ -113,7 +113,7 @@ public class MainProgramLoop {
 				}
 				case 2: 
 				{
-					UtilityMethods.curl("curl http://127.0.0.1:8080/users/update_user");
+					UtilityMethods.curl("curl http://127.0.0.1:8080/drivers/update_driverLocation");
 					break;
 				}
 				case 3: 
