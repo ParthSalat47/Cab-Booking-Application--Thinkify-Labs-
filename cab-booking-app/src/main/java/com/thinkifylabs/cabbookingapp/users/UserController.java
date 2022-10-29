@@ -11,7 +11,6 @@ public class UserController {
 
     private final UserService userService;
 
-    //Constructor
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -44,6 +43,6 @@ public class UserController {
             System.out.println("\nThis user doesn't exist. Please add the user first.");        
     }
 
-    
+
 
 }
