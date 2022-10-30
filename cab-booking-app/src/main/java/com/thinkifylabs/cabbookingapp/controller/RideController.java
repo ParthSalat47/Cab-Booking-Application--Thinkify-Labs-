@@ -1,4 +1,4 @@
-package com.thinkifylabs.cabbookingapp.rides;
+package com.thinkifylabs.cabbookingapp.controller;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.thinkifylabs.cabbookingapp.drivers.DriverClass;
+import com.thinkifylabs.cabbookingapp.model.DriverClass;
+import com.thinkifylabs.cabbookingapp.model.RideClass;
+import com.thinkifylabs.cabbookingapp.service.RideService;
 
 @RestController
 @RequestMapping(path = "rides")

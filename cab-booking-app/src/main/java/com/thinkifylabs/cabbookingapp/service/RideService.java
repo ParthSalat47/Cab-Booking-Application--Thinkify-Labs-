@@ -1,14 +1,15 @@
-package com.thinkifylabs.cabbookingapp.rides;
+package com.thinkifylabs.cabbookingapp.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.thinkifylabs.cabbookingapp.drivers.DriverClass;
-import com.thinkifylabs.cabbookingapp.drivers.DriverRepository;
-import com.thinkifylabs.cabbookingapp.users.UserClass;
-import com.thinkifylabs.cabbookingapp.users.UserRepository;
+import com.thinkifylabs.cabbookingapp.model.DriverClass;
+import com.thinkifylabs.cabbookingapp.model.RideClass;
+import com.thinkifylabs.cabbookingapp.model.UserClass;
+import com.thinkifylabs.cabbookingapp.repository.DriverRepository;
+import com.thinkifylabs.cabbookingapp.repository.UserRepository;
 
 @Service
 public class RideService {

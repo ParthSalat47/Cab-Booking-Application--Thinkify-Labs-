@@ -1,10 +1,13 @@
-package com.thinkifylabs.cabbookingapp.users;
+package com.thinkifylabs.cabbookingapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.thinkifylabs.cabbookingapp.model.UserClass;
+import com.thinkifylabs.cabbookingapp.service.UserService;
 
 @RestController
 @RequestMapping(path = "users")

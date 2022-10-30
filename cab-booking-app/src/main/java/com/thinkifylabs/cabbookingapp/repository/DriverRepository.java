@@ -1,8 +1,10 @@
-package com.thinkifylabs.cabbookingapp.drivers;
+package com.thinkifylabs.cabbookingapp.repository;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
+
+import com.thinkifylabs.cabbookingapp.model.DriverClass;
 
 @Component
 public class DriverRepository {

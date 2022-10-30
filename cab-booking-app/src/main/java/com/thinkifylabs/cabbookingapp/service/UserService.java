@@ -1,7 +1,10 @@
-package com.thinkifylabs.cabbookingapp.users;
+package com.thinkifylabs.cabbookingapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.thinkifylabs.cabbookingapp.model.UserClass;
+import com.thinkifylabs.cabbookingapp.repository.UserRepository;
 
 @Service
 public class UserService {

@@ -1,9 +1,12 @@
-package com.thinkifylabs.cabbookingapp.drivers;
+package com.thinkifylabs.cabbookingapp.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.thinkifylabs.cabbookingapp.model.DriverClass;
+import com.thinkifylabs.cabbookingapp.repository.DriverRepository;
 
 @Service
 public class DriverService {
@@ -14,7 +17,7 @@ public class DriverService {
     public DriverService(DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
     }
-
+    
     public boolean add_driver_service(DriverClass newDriver)
     {
         return driverRepository.add_driver_repository(newDriver);

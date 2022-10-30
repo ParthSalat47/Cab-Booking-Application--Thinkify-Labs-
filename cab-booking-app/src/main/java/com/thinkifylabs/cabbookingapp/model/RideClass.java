@@ -1,4 +1,4 @@
-package com.thinkifylabs.cabbookingapp.rides;
+package com.thinkifylabs.cabbookingapp.model;
 
 public class RideClass {
 

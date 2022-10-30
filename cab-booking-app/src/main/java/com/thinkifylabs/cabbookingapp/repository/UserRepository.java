@@ -1,8 +1,10 @@
-package com.thinkifylabs.cabbookingapp.users;
+package com.thinkifylabs.cabbookingapp.repository;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
+
+import com.thinkifylabs.cabbookingapp.model.UserClass;
 
 @Component
 public class UserRepository{

@@ -1,4 +1,4 @@
-package com.thinkifylabs.cabbookingapp.drivers;
+package com.thinkifylabs.cabbookingapp.model;
 
 import org.springframework.data.annotation.Id;
 
