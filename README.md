@@ -14,10 +14,10 @@ This application is a backend API made using Java SpringBoot. The application ca
 ## Salient features
 1. Robust **Exception Handling** is done for all API endpoints
 2. Prevents creation of users or drivers with the same phone number
-3. Separation of concerns divides the application into different parts: Controllers, Services, Repository.
-4. Loose coupling is ensured by using Dependency Injection.
-5. Clean code is written by using proper variable names and comments wherever necessary. Code reusability is also taken into account. New features can easily be accomodated.
-6. Almost everything is implemented according to the business requirements provided. The differences present are only there to make the application more durable and scalable. 
+3. **Separation of concerns** divides the application into different parts: Controllers, Services, Repository.
+4. **Loose coupling** is ensured by using Dependency Injection.
+5. **Clean code** is written by using proper variable names and comments wherever necessary. **Code reusability** is also taken into account. New features can easily be accomodated.
+6. Almost everything is implemented **according to the business requirements** provided. The differences present are only there to make the application more durable and scalable. 
   - For example, phone number is used as a primary key instead of name, because multiple users can have the same name. 
 
 ## List of API endpoints
