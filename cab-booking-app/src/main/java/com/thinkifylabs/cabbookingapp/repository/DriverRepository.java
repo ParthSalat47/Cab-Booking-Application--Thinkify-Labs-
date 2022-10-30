@@ -21,6 +21,9 @@ public class DriverRepository {
     }
     //--------------------
 
+    /*
+     * Checks if a given phone number is already present in the database
+     */
     public boolean check_phone_number(long driverPhoneNumber)
     {
         for(DriverClass driver : driversList)

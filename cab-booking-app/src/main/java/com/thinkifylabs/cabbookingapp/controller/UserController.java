@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping(path = "add_user")
     public String add_user_controller(@RequestParam String userName, @RequestParam long userPhoneNumber, 
-        @RequestParam long xCoordinate, @RequestParam long yCoordinate)
+        @RequestParam long xCoordinate, @RequestParam long yCoordinate) throws Exception
     {
         UserClass newUser = new UserClass(userName, userPhoneNumber, xCoordinate, yCoordinate);
 
@@ -33,7 +33,8 @@ public class UserController {
     }
 
     @GetMapping(path = "update_user")
-    public String update_user_controller(@RequestParam long userPhoneNumber, @RequestParam String userNewName, @RequestParam long userNewPhoneNumber)
+    public String update_user_controller(@RequestParam long userPhoneNumber, @RequestParam String userNewName, 
+        @RequestParam long userNewPhoneNumber) throws Exception
     {
         UserClass newUser = new UserClass(userNewName, userNewPhoneNumber, 0, 0);
 

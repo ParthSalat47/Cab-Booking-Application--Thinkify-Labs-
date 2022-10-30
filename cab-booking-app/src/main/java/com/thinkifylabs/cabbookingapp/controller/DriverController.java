@@ -26,7 +26,7 @@ public class DriverController {
     public String add_driver_controller(@RequestParam String driverName, @RequestParam String driverGender, 
         @RequestParam long driverAge, @RequestParam long driverPhoneNumber, 
         @RequestParam String vehicleDetails, @RequestParam long xCoordinate, 
-        @RequestParam long yCoordinate, @RequestParam boolean available, @RequestParam long driverEarning)
+        @RequestParam long yCoordinate, @RequestParam boolean available, @RequestParam long driverEarning) throws Exception
     {
         DriverClass newDriver = new DriverClass(driverName, driverPhoneNumber, driverGender, driverAge, vehicleDetails, xCoordinate, yCoordinate, available, driverEarning);
 

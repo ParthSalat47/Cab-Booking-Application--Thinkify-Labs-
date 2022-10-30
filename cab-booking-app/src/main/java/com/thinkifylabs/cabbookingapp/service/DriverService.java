@@ -3,8 +3,10 @@ package com.thinkifylabs.cabbookingapp.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.thinkifylabs.cabbookingapp.exceptionHandling.CustomException;
 import com.thinkifylabs.cabbookingapp.model.DriverClass;
 import com.thinkifylabs.cabbookingapp.repository.DriverRepository;
 
@@ -18,8 +20,14 @@ public class DriverService {
         this.driverRepository = driverRepository;
     }
     
-    public boolean add_driver_service(DriverClass newDriver)
+    public boolean add_driver_service(DriverClass newDriver) throws Exception
     {
+        if(driverRepository.check_phone_number(newDriver.getDriverPhoneNumber()))
+        {
+            throw new CustomException(HttpStatus.BAD_REQUEST, "A driver already exists with the given phone number.");
+        }
+
+        //Else, add the driver 
         return driverRepository.add_driver_repository(newDriver);
     }
 

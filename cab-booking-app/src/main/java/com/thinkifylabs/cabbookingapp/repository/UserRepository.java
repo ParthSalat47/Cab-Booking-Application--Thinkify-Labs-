@@ -46,6 +46,9 @@ public class UserRepository{
         return false;
     }
 
+    /*
+     * Checks if a given phone number is present in the user database
+     */
     public boolean check_phone_number(long userPhoneNumber)
     {
         for(UserClass user : usersList)
