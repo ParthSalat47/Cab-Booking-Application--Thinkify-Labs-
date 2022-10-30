@@ -24,7 +24,7 @@ public class RideController {
     }
 
     @GetMapping(path = "find_ride")
-    public ArrayList<DriverClass> find_ride(@RequestParam long userPhoneNumber, @RequestParam long sourceXCoordinate, @RequestParam long sourceYCoordinate, @RequestParam long destXCoordinate, @RequestParam long destYCoordinate)
+    public ArrayList<DriverClass> find_ride(@RequestParam long userPhoneNumber, @RequestParam long sourceXCoordinate, @RequestParam long sourceYCoordinate, @RequestParam long destXCoordinate, @RequestParam long destYCoordinate) throws Exception
     {
         //Ignore the source coordinates because the user's current location will be the source of the ride (according to requirements file)
         RideClass newRide = new RideClass(userPhoneNumber, 0, 0, 0, destXCoordinate, destYCoordinate, 0);
@@ -33,18 +33,17 @@ public class RideController {
     }
 
     @GetMapping(path = "choose_ride")
-    public String choose_ride(@RequestParam long userPhoneNumber, @RequestParam long driverPhoneNumber)
+    public String choose_ride(@RequestParam long userPhoneNumber, @RequestParam long driverPhoneNumber) throws Exception
     {
         RideClass newRide = new RideClass(userPhoneNumber, driverPhoneNumber, 0, 0, 0, 0, 0);
 
-        if(ridesService.choose_ride_service(newRide))
-            return "Ride has started.";
-        else 
-            return "Could not start ride. Please try again later.";
+        ridesService.choose_ride_service(newRide);
+        
+        return "Ride has started.";
     }
 
     @GetMapping(path = "calculateBill")
-    public String calculateBill(@RequestParam long userPhoneNumber)
+    public String calculateBill(@RequestParam long userPhoneNumber) throws Exception
     {
         long paymentDue = ridesService.calculateBill_service(userPhoneNumber);
         

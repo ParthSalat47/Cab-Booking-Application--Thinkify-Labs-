@@ -1,10 +1,13 @@
 package com.thinkifylabs.cabbookingapp.service;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.thinkifylabs.cabbookingapp.exceptionHandling.CustomException;
 import com.thinkifylabs.cabbookingapp.model.DriverClass;
 import com.thinkifylabs.cabbookingapp.model.RideClass;
 import com.thinkifylabs.cabbookingapp.model.UserClass;
@@ -17,24 +20,25 @@ public class RideService {
     private final UserRepository userRepository;
     private final DriverRepository driverRepository;
     
-    private long travelDistance;
+    private ArrayList<DriverClass> nearbyDriversList = new ArrayList<DriverClass>();
+    private long travelDistance = Long.MIN_VALUE;
     private long destXCoordinate;
     private long destYCoordinate;
 
     @Autowired
-    public RideService(UserRepository userRepository, DriverRepository driverRepository) {
+    public RideService(UserRepository userRepository, DriverRepository driverRepository) throws NoSuchElementException{
         this.userRepository = userRepository;
         this.driverRepository = driverRepository;
     }
 
     //Returns list of drivers within 5 units distance and who are available
-    public ArrayList<DriverClass> find_ride_service(RideClass newRide)
+    public ArrayList<DriverClass> find_ride_service(RideClass newRide) throws Exception
     {
         //If phone number isn't in database
         if(userRepository.check_phone_number(newRide.getUserPhoneNumber()) == false)
-            return null;
+            throw new CustomException(HttpStatus.NOT_FOUND, "User not registered. Please add user before starting a ride.");
 
-        //User's current location will be this ride's source coordinates
+        //User's current location will be this ride's source coordinates (acc. to requirements)
         for(UserClass user : userRepository.getUsersList())
         {
             if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
@@ -53,7 +57,9 @@ public class RideService {
         destYCoordinate = newRide.getDestYCoordinate();
 
         ArrayList<DriverClass> driversList = driverRepository.getDriversList();
-        ArrayList<DriverClass> nearbyDriversList = new ArrayList<DriverClass>();
+        
+        //Clear the existing nearbyDriversList, because a new find_ride request was made
+        nearbyDriversList.clear();
 
         for(DriverClass driver : driversList)
         {
@@ -64,9 +70,6 @@ public class RideService {
                 nearbyDriversList.add(driver);
             }
         }
-
-        // System.out.println(driverRepository.getDriversList());
-        // System.out.println(userRepository.getUsersList());
 
         return nearbyDriversList;
     }
@@ -82,16 +85,27 @@ public class RideService {
     }
 
     //Begins the ride
-    public boolean choose_ride_service(RideClass newRide)
+    public void choose_ride_service(RideClass newRide) throws Exception
     {
+        //If user is choose_ride before find_ride, throw exception
+        if(travelDistance == Long.MIN_VALUE)
+        {
+            throw new CustomException(HttpStatus.BAD_REQUEST, "Please use find_ride functionality before choose_ride.");
+        }
+        
+        boolean driverPhoneNumberFound = false;
+        boolean userPhoneNumberFound = false;
+
         //Pay the driver and update his current location
-        for(DriverClass driver : driverRepository.getDriversList())
+        for(DriverClass driver : nearbyDriversList)
         {
             if(driver.getDriverPhoneNumber() == newRide.getDriverPhoneNumber())
             {
+                //Money will be 'added' to the driver's earnings
                 driver.setDriverEarning(driver.getDriverEarning() + travelDistance);
                 driver.setxCoordinate(destXCoordinate);
                 driver.setyCoordinate(destYCoordinate);
+                driverPhoneNumberFound = true;
             }
         }
 
@@ -100,20 +114,32 @@ public class RideService {
         {
             if(user.getUserPhoneNumber() == newRide.getUserPhoneNumber())
             {
+                //The user is expected to have cleared his past due bills.
                 user.setUserBillDue(travelDistance);
                 user.setxCoordinate(destXCoordinate);
                 user.setyCoordinate(destYCoordinate);
+                userPhoneNumberFound = true;
             }
         }
-        
-        // System.out.println(driverRepository.getDriversList());
-        // System.out.println(userRepository.getUsersList());
 
-        return true;
+        //reset travelDistance so that user will HAVE to find_ride before choose_ride (because nearbyDriversList would only then be populated)
+        travelDistance = Long.MIN_VALUE;
+
+        //Possible exceptions 
+        if(driverPhoneNumberFound == false)
+        {
+            //He may also not be registered
+            throw new CustomException(HttpStatus.NOT_FOUND, "This driver is either not in the available state or is more than 5 units away.");
+        }
+        if(userPhoneNumberFound == false)
+        {
+            throw new CustomException(HttpStatus.NOT_FOUND, "This user is not registered. Please add user before choosing a ride.");
+        }
+        
     }
 
     //Calculates bill and ends the ride
-    public long calculateBill_service(long userPhoneNumber)
+    public long calculateBill_service(long userPhoneNumber) throws Exception
     {
         for(UserClass user : userRepository.getUsersList())
         {
@@ -123,7 +149,8 @@ public class RideService {
             }
         }
 
-        return 0;
+        //If user was not found in repository, throw exception
+        throw new CustomException(HttpStatus.NOT_FOUND, "This user is not registered. Please add user before calculating bill.");
     }
 
 }
