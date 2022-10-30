@@ -58,7 +58,7 @@ public class RideService {
         {
             long driverDistance = calculateDistance(driver.getxCoordinate(), driver.getyCoordinate(), newRide.getSourceXCoordinate(), newRide.getSourceYCoordinate());
 
-            if(driver.getavailable() && driverDistance < 5)
+            if(driver.getavailable() && driverDistance <= 5)
             {
                 nearbyDriversList.add(driver);
             }

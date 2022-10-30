@@ -10,7 +10,7 @@ public class CabBookingAppApplication {
 		SpringApplication.run(CabBookingAppApplication.class, args);
 
 		//Begin the console program
-		MainProgramLoop.homescreen();
+		System.out.println("Begin hitting the API!");
 	}
 
 	
