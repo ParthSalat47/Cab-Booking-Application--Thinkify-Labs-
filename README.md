@@ -7,7 +7,7 @@ This application is a backend API made using Java SpringBoot. The application ca
 1. Java SpringBoot
   - *To create the entire backend API*
 2. Postman
-  - *To hit and test all API endpoints*
+  - [*To hit and test all API endpoints*](https://www.getpostman.com/collections/23fda0530d242fa5a412)
 3. Git 
   - *To maintain different versions of the source code*
 
